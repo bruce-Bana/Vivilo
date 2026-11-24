@@ -177,7 +177,7 @@ base.write_text(s, encoding="utf-8")
 
 wallpaper = Path("source/app/src/main/java/com/vivilo/media/ui/components/WallpaperBackground.kt")
 w = wallpaper.read_text(encoding="utf-8")
-w = w.replace("    val wallpaper = prefs.wallpaper", "    val wallpaper = prefs.wallpaper\\n    val ambientPrimary = MaterialTheme.colorScheme.primary\\n    val ambientTertiary = MaterialTheme.colorScheme.tertiary", 1)
+w = w.replace("    val wallpaper = prefs.wallpaper", "    val wallpaper = prefs.wallpaper\n    val ambientPrimary = MaterialTheme.colorScheme.primary\n    val ambientTertiary = MaterialTheme.colorScheme.tertiary", 1)
 needle = """            }
         }
 

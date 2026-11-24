@@ -45,7 +45,7 @@ jobs:
           accept-android-sdk-licenses: true
 
       - name: Install Android platform
-        run: sdkmanager "platforms;android-36-ext1"
+        run: sdkmanager "platforms;android-36"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6

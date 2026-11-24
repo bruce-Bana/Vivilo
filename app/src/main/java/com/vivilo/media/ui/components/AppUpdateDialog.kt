@@ -45,7 +45,7 @@ fun AppUpdateDialog(onDismiss: () -> Unit) {
     var checking by remember { mutableStateOf(true) }
     var downloading by remember { mutableStateOf(false) }
 
-    fun check() {
+    fun runUpdateCheck() {
         checking = true
         status = "Checking the official Vivilo release..."
         scope.launch {
@@ -53,17 +53,17 @@ fun AppUpdateDialog(onDismiss: () -> Unit) {
                 .onSuccess { result ->
                     update = (result as? UpdateCheckResult.Available)?.update
                     status = if (result is UpdateCheckResult.UpToDate) {
-                        "You're up to date. Vivilo \${BuildConfig.VERSION_NAME} is the latest version."
+                        "You're up to date. Vivilo ${BuildConfig.VERSION_NAME} is the latest version."
                     } else {
-                        "Version \${update?.versionName} is available."
+                        "Version ${update?.versionName} is available."
                     }
                 }
-                .onFailure { status = "Update check failed: \${it.message ?: "Please try again."}" }
+                .onFailure { status = "Update check failed: ${it.message ?: "Please try again."}" }
             checking = false
         }
     }
 
-    LaunchedEffect(Unit) { check() }
+    LaunchedEffect(Unit) { runUpdateCheck() }
 
     AlertDialog(
         onDismissRequest = { if (!checking && !downloading) onDismiss() },
@@ -71,10 +71,10 @@ fun AppUpdateDialog(onDismiss: () -> Unit) {
         title = { Text("Vivilo updates", fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("Installed: \${BuildConfig.VERSION_NAME} (build \${BuildConfig.VERSION_CODE})")
+                Text("Installed: ${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})")
                 Text(status, style = MaterialTheme.typography.bodyMedium)
                 update?.let {
-                    Text("Available: \${it.versionName} (build \${it.versionCode})", fontWeight = FontWeight.SemiBold)
+                    Text("Available: ${it.versionName} (build ${it.versionCode})", fontWeight = FontWeight.SemiBold)
                     if (it.releaseNotes.isNotBlank()) {
                         Text(
                             it.releaseNotes.take(500),
@@ -99,7 +99,7 @@ fun AppUpdateDialog(onDismiss: () -> Unit) {
         },
         confirmButton = {
             if (update == null) {
-                TextButton(onClick = { check() }, enabled = !checking) { Text("Check again") }
+                TextButton(onClick = { runUpdateCheck() }, enabled = !checking) { Text("Check again") }
             } else {
                 Button(
                     enabled = !checking && !downloading && activity != null,
@@ -116,7 +116,7 @@ fun AppUpdateDialog(onDismiss: () -> Unit) {
                                         "Verified APK sent to Android's installer. Follow the system prompts."
                                     }
                                 }
-                                .onFailure { status = "Update failed: \${it.message ?: "Please try again."}" }
+                                .onFailure { status = "Update failed: ${it.message ?: "Please try again."}" }
                             downloading = false
                         }
                     }

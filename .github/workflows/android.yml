@@ -5,7 +5,7 @@ on:
     branches: [main]
     tags: ["v*"]
     paths:
-      - "vivilo-source.zip"
+      - "Vivilo-GitHub-Actions-Ready.zip"
       - ".github/workflows/android.yml"
   workflow_dispatch:
 
@@ -27,8 +27,8 @@ jobs:
 
       - name: Verify and unpack Android source
         run: |
-          test -s vivilo-source.zip
-          unzip -q vivilo-source.zip -d source
+          test -s Vivilo-GitHub-Actions-Ready.zip
+          unzip -q Vivilo-GitHub-Actions-Ready.zip -d source
           test -f source/settings.gradle.kts
           test -f source/app/build.gradle.kts
 

@@ -47,3 +47,5 @@ Never commit the keystore or its passwords to the repository. Keep a secure back
 The first stable-signed build cannot update an earlier APK that was signed with a temporary GitHub-hosted debug key. That first transition requires removing the older installation and installing the stable-signed build. Removing the old app clears its private app data; back up anything important first. After the stable-signed build is installed, subsequent releases can update in place.
 
 The workflow increments the Android version code using the GitHub Actions run number and publishes the version manifest with each latest release.
+
+> **Distribution note:** this updater is intended for Vivilo APK releases distributed directly from GitHub. Google Play restricts `REQUEST_INSTALL_PACKAGES` and does not permit it as a general self-update mechanism; a Play Store edition should use Google's Play in-app update flow instead.

@@ -50,6 +50,18 @@ jobs:
           s = s.replace(old_call, "detectVerticalDragGestures(", 1)
           p.write_text(s, encoding="utf-8")
           print("Patched PlayerScreen.kt: imported and invoked detectVerticalDragGestures correctly")
+
+          # Robolectric 4.16.1 does not provide a stable SDK 36 runtime yet.
+          for relative in (
+              "app/src/test/java/com/vivilo/media/ExampleRobolectricTest.kt",
+              "app/src/test/java/com/vivilo/media/GreetingScreenshotTest.kt",
+          ):
+              test_file = Path("source") / relative
+              test_source = test_file.read_text(encoding="utf-8")
+              if "sdk = [36]" not in test_source:
+                  raise SystemExit(f"Expected Robolectric SDK 36 config in {relative}")
+              test_file.write_text(test_source.replace("sdk = [36]", "sdk = [35]"), encoding="utf-8")
+          print("Pinned Robolectric test runtime to supported Android SDK 35")
           PY
 
       - name: Set up Java 17

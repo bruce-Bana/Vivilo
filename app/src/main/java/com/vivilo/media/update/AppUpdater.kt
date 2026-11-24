@@ -70,7 +70,7 @@ object AppUpdater {
     suspend fun downloadAndInstall(activity: Activity, update: ViviloUpdate): InstallResult =
         withContext(Dispatchers.IO) {
             val folder = File(activity.cacheDir, "updates").apply { mkdirs() }
-            val apkFile = File(folder, "vivilo-\${update.versionCode}.apk")
+            val apkFile = File(folder, "vivilo-${update.versionCode}.apk")
             val connection = openConnection(update.apkUrl)
             try {
                 require(connection.contentLengthLong <= MAX_APK_BYTES) { "Update file is unexpectedly large" }
@@ -114,14 +114,14 @@ object AppUpdater {
                     activity.startActivity(
                         Intent(
                             Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                            Uri.parse("package:\${activity.packageName}")
+                            Uri.parse("package:${activity.packageName}")
                         )
                     )
                     InstallResult.PermissionRequired
                 } else {
                     val uri = FileProvider.getUriForFile(
                         activity,
-                        "\${activity.packageName}.fileprovider",
+                        "${activity.packageName}.fileprovider",
                         apkFile
                     )
                     activity.startActivity(
@@ -150,7 +150,7 @@ object AppUpdater {
             connectTimeout = 15_000
             readTimeout = 30_000
             instanceFollowRedirects = true
-            setRequestProperty("User-Agent", "Vivilo-Android/\${BuildConfig.VERSION_NAME}")
+            setRequestProperty("User-Agent", "Vivilo-Android/${BuildConfig.VERSION_NAME}")
             setRequestProperty("Accept", "application/vnd.github+json")
             connect()
             if (responseCode !in 200..299) {

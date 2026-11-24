@@ -38,8 +38,8 @@ jobs:
           from pathlib import Path
           p = Path("source/app/src/main/java/com/vivilo/media/ui/screens/PlayerScreen.kt")
           s = p.read_text(encoding="utf-8")
-          old_import = "import androidx.compose.foundation.gestures.detectTapGestures\\n"
-          new_import = old_import + "import androidx.compose.foundation.gestures.detectVerticalDragGestures\\n"
+          old_import = "import androidx.compose.foundation.gestures.detectTapGestures"
+          new_import = old_import + chr(10) + "import androidx.compose.foundation.gestures.detectVerticalDragGestures"
           if "import androidx.compose.foundation.gestures.detectVerticalDragGestures" not in s:
               if old_import not in s:
                   raise SystemExit("Could not locate Compose gesture imports")

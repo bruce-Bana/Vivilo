@@ -32,6 +32,26 @@ jobs:
           test -f source/settings.gradle.kts
           test -f source/app/build.gradle.kts
 
+      - name: Apply verified Kotlin compile fix
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("source/app/src/main/java/com/vivilo/media/ui/screens/PlayerScreen.kt")
+          s = p.read_text(encoding="utf-8")
+          old_import = "import androidx.compose.foundation.gestures.detectTapGestures\\n"
+          new_import = old_import + "import androidx.compose.foundation.gestures.detectVerticalDragGestures\\n"
+          if "import androidx.compose.foundation.gestures.detectVerticalDragGestures" not in s:
+              if old_import not in s:
+                  raise SystemExit("Could not locate Compose gesture imports")
+              s = s.replace(old_import, new_import, 1)
+          old_call = "androidx.compose.foundation.gestures.detectVerticalDragGestures("
+          if old_call not in s:
+              raise SystemExit("Expected broken vertical-drag call was not found")
+          s = s.replace(old_call, "detectVerticalDragGestures(", 1)
+          p.write_text(s, encoding="utf-8")
+          print("Patched PlayerScreen.kt: imported and invoked detectVerticalDragGestures correctly")
+          PY
+
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
@@ -59,7 +79,6 @@ jobs:
       - name: Run unit tests
         working-directory: source
         timeout-minutes: 10
-        continue-on-error: true
         run: gradle :app:testDebugUnitTest --no-daemon
 
       - name: Prepare downloadable APK

@@ -177,6 +177,7 @@ base.write_text(s, encoding="utf-8")
 
 wallpaper = Path("source/app/src/main/java/com/vivilo/media/ui/components/WallpaperBackground.kt")
 w = wallpaper.read_text(encoding="utf-8")
+w = w.replace("    val wallpaper = prefs.wallpaper", "    val wallpaper = prefs.wallpaper\\n    val ambientPrimary = MaterialTheme.colorScheme.primary\\n    val ambientTertiary = MaterialTheme.colorScheme.tertiary", 1)
 needle = """            }
         }
 
@@ -187,12 +188,12 @@ replacement = """            }
             // Subtle ambient color keeps glass cards legible without costly live blur.
             Canvas(modifier = Modifier.fillMaxSize()) {
                 drawCircle(
-                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.055f),
+                    color = ambientPrimary.copy(alpha = 0.055f),
                     radius = size.width * 0.78f,
                     center = Offset(size.width * 0.92f, size.height * 0.08f)
                 )
                 drawCircle(
-                    color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.045f),
+                    color = ambientTertiary.copy(alpha = 0.045f),
                     radius = size.width * 0.62f,
                     center = Offset(size.width * 0.04f, size.height * 0.88f)
                 )

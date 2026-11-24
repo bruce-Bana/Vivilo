@@ -95,6 +95,11 @@ jobs:
         with:
           gradle-version: "9.3.1"
 
+      - name: Run unit tests
+        working-directory: source
+        timeout-minutes: 10
+        run: gradle :app:testDebugUnitTest --no-daemon
+
       - name: Configure stable APK signing
         env:
           VIVILO_KEYSTORE_BASE64: ${{ secrets.VIVILO_KEYSTORE_BASE64 }}
@@ -116,11 +121,6 @@ jobs:
           KEY_ALIAS: ${{ secrets.VIVILO_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.VIVILO_KEY_PASSWORD }}
         run: gradle :app:assembleRelease --no-daemon
-
-      - name: Run unit tests
-        working-directory: source
-        timeout-minutes: 10
-        run: gradle :app:testDebugUnitTest --no-daemon
 
       - name: Prepare downloadable APK and version manifest
         env:

@@ -7,6 +7,7 @@ on:
     paths:
       - "Vivilo-GitHub-Actions-Ready.zip"
       - ".github/workflows/android.yml"
+      - "scripts/apply_ui_refresh.py"
   workflow_dispatch:
 
 permissions:
@@ -63,6 +64,10 @@ jobs:
               test_file.write_text(test_source.replace("sdk = [36]", "sdk = [35]"), encoding="utf-8")
           print("Pinned Robolectric test runtime to supported Android SDK 35")
           PY
+
+      - name: Apply compact glass UI refresh
+        run: |
+          python3 scripts/apply_ui_refresh.py
 
       - name: Set up Java 17
         uses: actions/setup-java@v4

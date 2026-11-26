@@ -9,6 +9,7 @@ on:
       - ".github/workflows/android.yml"
       - "scripts/apply_ui_refresh.py"
       - "scripts/apply_color_themes.py"
+      - "scripts/apply_compact_header.py"
       - "scripts/apply_update_support.py"
       - "app/**"
   workflow_dispatch:
@@ -75,6 +76,10 @@ jobs:
       - name: Apply persistent accent colour themes
         run: |
           python3 scripts/apply_color_themes.py
+
+      - name: Compact upper search and browsing controls
+        run: |
+          python3 scripts/apply_compact_header.py
 
       - name: Package updated Android source
         run: |

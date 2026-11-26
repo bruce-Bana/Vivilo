@@ -143,7 +143,7 @@ replacements = [
         colors = CardDefaults.cardColors(
             containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.88f) else MaterialTheme.colorScheme.surface.copy(alpha = 0.70f)"""),
     (""".size(56.dp)
-                            .clip(RoundedCornerShape(14.dp))""", """.size(48.dp)
+                            .clip(RoundedCornerShape(14.dp))""", """.size(52.dp)
                             .clip(RoundedCornerShape(12.dp))"""),
     (""".size(56.dp)
                             .clip(RoundedCornerShape(14.dp))""", """.size(48.dp)

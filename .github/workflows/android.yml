@@ -71,6 +71,21 @@ jobs:
         run: |
           python3 scripts/apply_ui_refresh.py
 
+      - name: Inspect theme source for final verification
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for name in (
+              "source/app/src/main/java/com/vivilo/media/ui/theme/Color.kt",
+              "source/app/src/main/java/com/vivilo/media/ui/theme/AppPreferences.kt",
+              "source/app/src/main/java/com/vivilo/media/ui/theme/Theme.kt",
+              "source/app/src/main/java/com/vivilo/media/ui/components/ThemeSettingsSheet.kt",
+          ):
+              p = Path(name)
+              print("\\n===== " + name + " =====")
+              print(p.read_text(encoding="utf-8"))
+          PY
+
       - name: Package updated Android source
         run: |
           mkdir -p dist

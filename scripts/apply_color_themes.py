@@ -148,7 +148,7 @@ section = '''            // SECTION 2: ACCENT COLOUR PALETTE
                                     shape = RoundedCornerShape(14.dp)
                                 )
                                 .padding(vertical = 10.dp, horizontal = 6.dp)
-                                .semantics { contentDescription = "Select \${palette.label} accent colour" },
+                                .semantics { contentDescription = "Select ${palette.label} accent colour" },
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {

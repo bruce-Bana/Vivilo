@@ -19,7 +19,11 @@ one(components,
             verticalArrangement = Arrangement.spacedBy(4.dp)''',
 "active search header spacing")
 one(components, '.height(52.dp)', '.height(42.dp)', "active search field height")
-one(components, 'shadowElevation = 6.dp,', 'shadowElevation = 3.dp,', "active search field elevation")
+data = components.read_text(encoding="utf-8")
+if data.count("shadowElevation = 6.dp,") < 1:
+    raise SystemExit("active search field elevation: no matching elevation")
+data = data.replace("shadowElevation = 6.dp,", "shadowElevation = 3.dp,", 1)
+components.write_text(data, encoding="utf-8")
 one(components, '.size(48.dp)\n                            .testTag("top_bar_back_button")', '.size(40.dp)\n                            .testTag("top_bar_back_button")', "back control size")
 one(components, '.size(48.dp)\n                                    .testTag("clear_search_button")', '.size(40.dp)\n                                    .testTag("clear_search_button")', "clear search control size")
 one(components, '.size(48.dp)\n                        .testTag("toggle_view_mode_button")', '.size(40.dp)\n                        .testTag("toggle_view_mode_button")', "view toggle size")

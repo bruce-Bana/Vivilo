@@ -8,6 +8,7 @@ on:
       - "Vivilo-GitHub-Actions-Ready.zip"
       - ".github/workflows/android.yml"
       - "scripts/apply_ui_refresh.py"
+      - "scripts/apply_color_themes.py"
       - "scripts/apply_update_support.py"
       - "app/**"
   workflow_dispatch:

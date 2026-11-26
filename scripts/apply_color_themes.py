@@ -186,4 +186,10 @@ text = settings.read_text(encoding="utf-8")
 text = text.replace("// SECTION 3: ACCESSIBILITY & VISUAL LEGIBILITY", "// SECTION 4: ACCESSIBILITY & VISUAL LEGIBILITY", 1)
 settings.write_text(text, encoding="utf-8")
 
+# Keep the previously deferred in-app updater out of this release.
+for relative in ("ui/components/AppUpdateDialog.kt", "update/AppUpdater.kt"):
+    target = ROOT / relative
+    if target.exists():
+        target.unlink()
+
 print("Added persistent Light Blue, Ocean, Violet, Emerald and Rose accent palettes with live Settings selection")

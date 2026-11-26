@@ -18,11 +18,11 @@ fun FloatingNavPill(selectedTab: Int, onSelect: (Int) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .navigationBarsPadding()
-            .padding(horizontal = 22.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 6.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             destinations.forEachIndexed { index, dest ->
@@ -34,9 +34,9 @@ fun FloatingNavPill(selectedTab: Int, onSelect: (Int) -> Unit) {
                     shape = RoundedCornerShape(17.dp),
                     color = if (selected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.88f)
                         else MaterialTheme.colorScheme.surface.copy(alpha = 0.78f),
-                    shadowElevation = if (selected) 7.dp else 4.dp,
+                    shadowElevation = if (selected) 5.dp else 2.dp,
                     modifier = Modifier
-                        .size(width = 64.dp, height = 58.dp)
+                        .size(width = 60.dp, height = 54.dp)
                         .border(
                             width = 1.dp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = if (selected) 0.14f else 0.09f),
@@ -53,9 +53,9 @@ fun FloatingNavPill(selectedTab: Int, onSelect: (Int) -> Unit) {
                             imageVector = dest.icon,
                             contentDescription = dest.label,
                             tint = tint,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(19.dp)
                         )
-                        Spacer(modifier = Modifier.height(3.dp))
+                        Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = dest.label,
                             style = MaterialTheme.typography.labelSmall,
